@@ -66,6 +66,13 @@ btn.classlist.remove('active');
   }
   console.log(tipValue);
 }
+ function calculate(){
+  if(peopleValue => 1) {
+    let tip = billValue * tipValue / peopleValue;
+    let total = billValue * (tipValue + 1) / peopleValue;
+
+    totalValue[0].innerHTML = '$' + (0.0).toFixed(2);
+  }
 
 
 

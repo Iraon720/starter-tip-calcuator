@@ -53,37 +53,38 @@ function handleClick(event){
       console.log(tipValue);
 
     }
-    custom-gratuity.value = ;
+    custom-gratuity.value='';
     calculate()
 }
-function customTipValue(){
+}
+
+ function customTipValue(){
   tipValue = parseFloat(custom-gratuity.value/100);
-  button.forEach(gratuity => {
-btn.classlist.remove('active');
+  gratuityBtn.forEach(gratuity => {
+gratuity.classlist.remove('active');
   })
   if(custom-gratuity.value !== 0){
     calculate();
   }
   console.log(tipValue);
 }
+
  function calculate(){
   if(peopleValue >= 1) {
-    let tip = billValue * tipValue / peopleValue;
-    let total = billValue * (tipValue + 1) / peopleValue;
+    let splitTip = billValue * tipValue / peopleValue;
+    let splitTotal = billValue * (tipValue + 1) / peopleValue;
 
-    totalValue[0].innerHTML = '$' + tip.toFixed(2);
-    totalValue[1].innerHTML = '$' + total.toFixed(2);
+    totalValue[0].innerHTML = '$' + splitTip.toFixed(2);
+    totalValue[1].innerHTML = '$' + splitTotal.toFixed(2);
   }
  }
   function handleReset(){
     bill.value = 0.0;
     validateBill();
 
-    button[2].click();
+    gratuityBtn[2].click();
     people.value = 1;
     setPeopleValue();
   }
-
-
 
 

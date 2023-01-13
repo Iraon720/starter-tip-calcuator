@@ -19,6 +19,7 @@ const customGratuity = document.getElementById('custom-gratuity');
 const people = document.getElementById('people');
 const splitTip = document.getElementById('split-tip');
 const splitTotal = document.getElementById('split-total');
+const error = document.getElementById('error');
 const resetBtn = document.getElementById('reset');
 
 // ** Your work goes below here
@@ -34,7 +35,6 @@ splitTotal.innerHTML = '$' + (0.0).toFixed(2);
 let billValue = 0;
 let peopleValue = 1;
 let tipValue = 0.15;
-
 
 
 function  billAmount(){
@@ -84,6 +84,16 @@ gratuity.classlist.remove('active');
     calculateAmount();
   }
   console.log(tipValue);
+}
+function numPeople(){
+  peopleValue = parseFloat(people.value)
+  if(peopleValue <= 0 ){
+    error.innerHTML = 'Please enter number greater than zero'
+    setTimeout(function(){
+      error.innerHTML = ''
+    }, 200)
+    
+  }
 }
 
   function handleReset(){

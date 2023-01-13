@@ -26,7 +26,7 @@ let billValue = 0;
 let peopleValue = 1;
 let tipValue = 0.15;
 
-bill.addEventListener{'input',validateBill};
+bill.addEventListener('input',validateBill);
 
 function validateBill(){
 if(InputDeviceInfo.value.includes(',')){
@@ -67,13 +67,22 @@ btn.classlist.remove('active');
   console.log(tipValue);
 }
  function calculate(){
-  if(peopleValue => 1) {
+  if(peopleValue >= 1) {
     let tip = billValue * tipValue / peopleValue;
     let total = billValue * (tipValue + 1) / peopleValue;
 
-    totalValue[0].innerHTML = '$' + (0.0).toFixed(2);
+    totalValue[0].innerHTML = '$' + tip.toFixed(2);
+    totalValue[1].innerHTML = '$' + total.toFixed(2);
   }
+ }
+  function handleReset(){
+    bill.value = 0.0;
+    validateBill();
 
+    button[2].click();
+    people.value = 1;
+    setPeopleValue();
+  }
 
 
 

@@ -23,7 +23,7 @@ const resetBtn = document.getElementById('reset');
 
 // ** Your work goes below here
 customGratuity.addEventListener('input', customTipValue);
-people.addEventListener('input', peopleValue);
+people.addEventListener('input', numPeople);
 resetBtn.addEventListener('click', handleReset);
 bill.addEventListener('click', billAmount);
 
@@ -86,14 +86,13 @@ gratuity.classlist.remove('active');
   console.log(tipValue);
 }
 
-
   function handleReset(){
     bill.value = 0.0;
     billAmount();
 
     gratuityBtn[2].click();
     people.value = 1;
-    setPeopleValue();
+    numPeople();
   }
 
 

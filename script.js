@@ -22,23 +22,30 @@ const splitTotal = document.getElementById('split-total');
 const resetBtn = document.getElementById('reset');
 
 // ** Your work goes below here
+customGratuity.addEventListener('input', customTipValue);
+people.addEventListener('input', peopleValue);
+resetBtn.addEventListener('click', handleReset);
+bill.addEventListener('click', billAmount);
+
+splitTip.innerHTML = '$' + (0.0).toFixed(2);
+splitTotal.innerHTML = '$' + (0.0).toFixed(2);
+
+
 let billValue = 0;
 let peopleValue = 1;
 let tipValue = 0.15;
 
-bill.addEventListener('input',validateBill);
 
-function validateBill(){
+
+function  billAmount(){
 if(bill.value.includes(',')){
   bill.value.replace(',','.')
 }
 billValue = parseFloat(bill.value);
-calculate()
+calculateAmount()
 console.log(billValue);
 }
-customGratuity.addEventListener('input', custom-gratuity);
-people.addEventListener('input', peopleValue);
-resetBtn.addEventListener('click', handleReset);
+
 
 gratuityBtn.forEach(gratuity => {
   gratuity.addEventListener('click',handleClick);
@@ -53,10 +60,20 @@ function handleClick(event){
       console.log(tipValue);
 
     }
-    custom-gratuity.value='';
-    calculate()
+    custom-gratuity.value === '';
+    calculateAmount()
 }
 }
+
+ function calculateAmount(){
+  if(peopleValue >= 1) {
+    let tipAmount = billValue * tipValue / peopleValue;
+    let total = billValue * (tipAmount + 1) / peopleValue;
+
+    splitTip.innerHTML = '$' + tipAmount.toFixed(2);
+    splitTotal.innerHTML = '$' + total.toFixed(2);
+  }
+ }
 
  function customTipValue(){
   tipValue = parseFloat(custom-gratuity.value/100);
@@ -64,23 +81,15 @@ function handleClick(event){
 gratuity.classlist.remove('active');
   })
   if(custom-gratuity.value !== 0){
-    calculate();
+    calculateAmount();
   }
   console.log(tipValue);
 }
 
- function calculate(){
-  if(peopleValue >= 1) {
-    let splitTip = billValue * tipValue / peopleValue;
-    let splitTotal = billValue * (tipValue + 1) / peopleValue;
 
-    totalValue[0].innerHTML = '$' + splitTip.toFixed(2);
-    totalValue[1].innerHTML = '$' + splitTotal.toFixed(2);
-  }
- }
   function handleReset(){
     bill.value = 0.0;
-    validateBill();
+    billAmount();
 
     gratuityBtn[2].click();
     people.value = 1;

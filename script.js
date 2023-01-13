@@ -29,36 +29,36 @@ let tipValue = 0.15;
 bill.addEventListener('input',validateBill);
 
 function validateBill(){
-if(InputDeviceInfo.value.includes(',')){
-  input.value.replace(',','.')
+if(bill.value.includes(',')){
+  bill.value.replace(',','.')
 }
-billValue = parseFloat(input.value);
+billValue = parseFloat(bill.value);
 calculate()
 console.log(billValue);
 }
-customGratuity.addEventListener('input', customGratuity);
+customGratuity.addEventListener('input', custom-gratuity);
 people.addEventListener('input', peopleValue);
 resetBtn.addEventListener('click', handleReset);
 
-gratuityBtn.forEach(btn => {
-  btn.addEventListener('click',handleClick);
+gratuityBtn.forEach(gratuity => {
+  gratuity.addEventListener('click',handleClick);
 });
 
 function handleClick(event){
-  gratuityBtn.forEach(btn => {
-    btn.classList.remove('active');
-    if(event.target.innerHTML === btn.innerHTML){
-      btn.classList.add('active');
-      tipValue = parseFloat(btn.innerHTML)/100
+  gratuityBtn.forEach(gratuity => {
+    gratuity.classList.remove('active');
+    if(event.target.innerHTML === gratuity.innerHTML){
+      gratuity.classList.add('active');
+      tipValue = parseFloat(gratuity.innerHTML)/100
       console.log(tipValue);
 
-    })
-    custom-gratuity.value='';
+    }
+    custom-gratuity.value = ;
     calculate()
 }
 function customTipValue(){
   tipValue = parseFloat(custom-gratuity.value/100);
-  button.forEach(btn => {
+  button.forEach(gratuity => {
 btn.classlist.remove('active');
   })
   if(custom-gratuity.value !== 0){

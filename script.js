@@ -19,90 +19,88 @@ const customGratuity = document.getElementById('custom-gratuity');
 const people = document.getElementById('people');
 const splitTip = document.getElementById('split-tip');
 const splitTotal = document.getElementById('split-total');
-const error = document.getElementById('error');
 const resetBtn = document.getElementById('reset');
 
 // ** Your work goes below here
-customGratuity.addEventListener('input', customTipValue);
-people.addEventListener('input', numPeople);
-resetBtn.addEventListener('click', handleReset);
-bill.addEventListener('click', billAmount);
+bill.value = '';
+customGratuity.value = '';
+people.value = parseFloat('1');
+let tipPercent = parseFloat('15');
+let seperateAmount = parseFloat('');
+let tip = parseFloat('').toFixed(2);
+let price = parseFloat('').toFixed(2);
+let total = parseFloat('').toFixed(2);
 
-splitTip.innerHTML = '$' + (0.0).toFixed(2);
-splitTotal.innerHTML = '$' + (0.0).toFixed(2);
-
-
-let billValue = 0;
-let peopleValue = 1;
-let tipValue = 0.15;
-
-
-function  billAmount(){
-if(bill.value.includes(',')){
-  bill.value.replace(',','.')
-}
-billValue = parseFloat(bill.value);
-calculateAmount()
-console.log(billValue);
-}
-
-
-gratuityBtn.forEach(gratuity => {
-  gratuity.addEventListener('click',handleClick);
+gratuityBtn.forEach((button) => {
+  button.addEventListener('click', (event) => {
+    gratuityBtn.forEach((btn) => {
+      btn.classList.remove('active');
+      button.classList.add('active');
+      customGratuity.value = '';
+      if (button.classList.contains('active')) {
+        tipPercent = button.value;
+        getValues();
+        updateDisplay();
+      }
+    });
+    resetBtn.disabled = false;
+  });
 });
 
-function handleClick(event){
-  gratuityBtn.forEach(gratuity => {
-    gratuity.classList.remove('active');
-    if(event.target.innerHTML === gratuity.innerHTML){
-      gratuity.classList.add('active');
-      tipValue = parseFloat(gratuity.innerHTML)/100
-      console.log(tipValue);
-
-    }
-    custom-gratuity.value === '';
-    calculateAmount()
-}
+function getValues() {
+  price = bill.value / people.value;
+  tip = price * (tipPercent / 100);
+  total = price + tip;
+  splitTotal =
 }
 
- function calculateAmount(){
-  if(peopleValue >= 1) {
-    let tipAmount = billValue * tipValue / peopleValue;
-    let total = billValue * (tipAmount + 1) / peopleValue;
-
-    splitTip.innerHTML = '$' + tipAmount.toFixed(2);
-    splitTotal.innerHTML = '$' + total.toFixed(2);
-  }
- }
-
- function customTipValue(){
-  tipValue = parseFloat(custom-gratuity.value/100);
-  gratuityBtn.forEach(gratuity => {
-gratuity.classlist.remove('active');
-  })
-  if(custom-gratuity.value !== 0){
-    calculateAmount();
-  }
-  console.log(tipValue);
-}
-function numPeople(){
-  peopleValue = parseFloat(people.value)
-  if(peopleValue <= 0 ){
-    error.innerHTML = 'Please enter number greater than zero'
-    setTimeout(function(){
-      error.innerHTML = ''
-    }, 200)
-    
-  }
+function updateDisplay() {
+  splitTip.innerHTML = parseFloat(tip).toFixed(2);
+  splitPrice.innerHTML = parseFloat(price).toFixed(2);
+  splitTotal.innerHTML = parseFloat(total).toFixed(2);
 }
 
-  function handleReset(){
-    bill.value = 0.0;
-    billAmount();
+bill.addEventListener('change', (event) => {
+  bill.value = parseFloat(bill.value).toFixed(2);
+  getValues();
+});
 
-    gratuityBtn[2].click();
-    people.value = 1;
-    numPeople();
+people.addEventListener('change', (event) => {
+  people.value = people.value;
+  getValues();
+});
+
+customGratuity.addEventListener('click', (event) => {
+  gratuityBtn.forEach((tipBtn) => {
+    tipBtn.classList.remove('active');
+  });
+});
+
+customGratuity.addEventListener('change', (event) => {
+  tipPercent = customGratuity.value;
+  getValues();
+  updateDisplay();
+});
+
+window.addEventListener('change', (event) => {
+  resetBtn.disabled = false;
+  getValues();
+  updateDisplay();
+});
+
+resetBtn.addEventListener('click', (event) => {
+  if (resetBtn.disabled === false) {
+    bill.value = '';
+    customGratuity.value = '';
+    people.value = '1';
+    splitTip.innerHTML = '$ 0.00';
+    splitPrice.innerHTML = '$ 0.00';
+    splitTotal.innerHTML = '$ 0.00';
+    tipPercent = '15';
+    gratuityBtn.forEach((tipButton) => {
+      tipButton.classList.remove('active');
+    });
+    gratuityBtn[2].classList.add('active');
+    resetBtn.disabled = true;
   }
-
-
+});
